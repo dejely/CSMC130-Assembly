@@ -5,6 +5,7 @@ section .text
     global print_uint
 
 print_uint:
+    push rbx
     mov rcx, buffer + 31
     mov byte [rcx], 0 ; move memory address byte
 
@@ -34,4 +35,5 @@ print_uint:
     mov rdx, buffer + 31
     sub rdx, rcx
     syscall
+    pop rbx
     ret
