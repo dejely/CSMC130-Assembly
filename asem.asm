@@ -4,7 +4,7 @@ section .data
 
 section .text
     global _start ; globally start
-    extern utils ; call utils file
+    extern print_uint ; imported from utils.asm
 
 _start:; registers
     mov rax, 123; a = 0 (first iteration)
@@ -21,6 +21,5 @@ _start:; registers
     mov rax, 60 ; sys exit
     xor rdi, rdi
     syscall
-
 
 
