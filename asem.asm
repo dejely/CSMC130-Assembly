@@ -1,25 +1,40 @@
 
 section .data
+    prompt db "Enter n: ",  0
     newline db 10 ; memory
+
+section .bss 
+    input resb 32
 
 section .text
     global _start ; globally start
     extern print_uint ; imported from utils.asm
 
 _start:; registers
-    mov rax, 123; a = 0 (first iteration)
-    call print_uint ; b = 1 (2nd iteration)
-    
-    ; print current fibonnaci iteration
 
-    mov rax, 1  ; 1st param
-    mov rdi, 1 ; sys write and std out
-    mov rsi, newline
-    mov rdx, 1 ; length of new line which is equal to 1
+    ; print prompt
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, prompt
+    mov rdx, 9
     syscall
 
-    mov rax, 60 ; sys exit
-    xor rdi, rdi
+    ;read input
+    mov rax, 0 ; sys_read
+    mov rdi, 0  ; stdin
+    mov rsi, input
+    mov rdx, 32
     syscall
+
+    ; convert ASCII -> int
+    mov rsi, input
+    call atoi ; results in rax
+
+    mov r14, rax
+
+    mov r12, 0 ; a = 0
+    mov r13, 1 ; b = 1
+
+
 
 
